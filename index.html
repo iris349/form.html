@@ -36,7 +36,7 @@
       const major = document.getElementById("major").value;
 
       // fetch로 데이터 전송
-      fetch("https://script.google.com/macros/s/AKfycbyhAKVMJLjelawxd5XyVHKl2rGO_1zubc2j7pzJAzyGdHiRXqEdT2gKyATY4lH7jJs/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbwhaWJRJjzOP3P58yQCeqxMLtb9WcoHd55uyBmWeU9uHGlX2uKwUkDCtB0yvO13yYc_/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -46,7 +46,7 @@
       .then(() => alert("정보가 성공적으로 전송되었습니다!"))
       .catch(error => alert("전송 실패: " + error.message));
     }
-  </script>
+</script>
 </head>
 <body>
   <form onsubmit="submitForm(event)">

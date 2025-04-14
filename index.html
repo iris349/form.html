@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>폼 제출</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    form {
+      width: 400px;
+    }
+    fieldset {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      fetch("https://script.google.com/macros/s/여기에_앱스_스크립트_URL_붙여넣기/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`
+      })
+      .then(() => alert("정보가 성공적으로 전송되었습니다!"))
+      .catch(error => alert("전송 실패: " + error.message));
+    }
+  </script>
+</head>
+<body>
+  <form onsubmit="submitForm(event)">
+    <fieldset>
+      <legend>기본 정보</legend>
+      
+      <label for="email">이메일:</label>
+      <input type="email" id="email" name="email" required placeholder="example@email.com" />
+      
+      <label for="name">이름:</label>
+      <input type="text" id="name" name="name" required placeholder="홍길동" />
+      
+      <label for="hobby">취미 선택:</label>
+      <input list="hobbyList" name="hobby" />
+      <datalist id="hobbyList">
+        <option value="운동">
+        <option value="독서">
+        <option value="음악감상">
+        <option value="게임">
+      </datalist>
+    </fieldset>
+
+    <fieldset>
+      <legend>추가 정보</legend>
+
+      <label><input type="checkbox" name="agree" /> 약관에 동의합니다</label>
+
+      <label>성별:</label>
+      <label><input type="radio" name="gender" value="남" /> 남</label>
+      <label><input type="radio" name="gender" value="여" /> 여</label>
+
+      <label for="major">전공:</label>
+      <select name="major" id="major">
+        <option value="디지털소프트웨어공학부">디지털소프트웨어공학부</option>
+        <option value="바이오공학부">바이오공학부</option>
+        <option value="화학공학부">화학공학부</option>
+      </select>
+
+      <label for="message">message:</label>
+      <textarea id="message" name="message" required placeholder="내용을 입력하세요..."></textarea>
+    </fieldset>
+
+    <button type="submit">제출</button>
+  </form>
+</body>
+</html>

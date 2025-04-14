@@ -25,28 +25,33 @@
   <script>
     function submitForm(event) {
       event.preventDefault();
-      
-      // 폼 데이터 가져오기
+  
       const email = document.getElementById("email").value;
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
       const hobby = document.getElementById("hobby").value;
-      const agree = document.getElementById("agree").checked ? "동의" : "미동의";
-      const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+      const agree = document.getElementById("agree").checked ? "동의" : "비동의";
+      
+      let gender = "";
+      if (document.getElementById("gender_male").checked) gender = "남";
+      else if (document.getElementById("gender_female").checked) gender = "여";
+  
       const major = document.getElementById("major").value;
-
-      // fetch로 데이터 전송
-      fetch("https://script.google.com/macros/s/AKfycbwhaWJRJjzOP3P58yQCeqxMLtb9WcoHd55uyBmWeU9uHGlX2uKwUkDCtB0yvO13yYc_/exec", {
+  
+      fetch("https://script.google.com/macros/s/AKfycbzY0dmiCHxf7t9uh82iI-le1rxIrEbDUjZBFKH5um_aHQVsaG6wotGrbvPTGg_9qnDc/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: `email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}&hobby=${encodeURIComponent(hobby)}&agree=${encodeURIComponent(agree)}&gender=${encodeURIComponent(gender)}&major=${encodeURIComponent(major)}`
       })
-      .then(() => alert("정보가 성공적으로 전송되었습니다!"))
+      .then(response => response.text())
+      .then(result => {
+        alert("서버 응답: " + result);
+      })
       .catch(error => alert("전송 실패: " + error.message));
     }
-</script>
+  </script>  
 </head>
 <body>
   <form onsubmit="submitForm(event)">

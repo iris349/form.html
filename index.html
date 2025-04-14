@@ -22,16 +22,15 @@
       margin-top: 10px;
     }
   </style>
-  <script>
+ <script>
     function submitForm(event) {
       event.preventDefault();
       const email = document.getElementById("email").value;
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
-
+  
       fetch("https://script.google.com/macros/s/AKfycbzHDradcD4QvGG4ff4sTdqcTKGwXIBAr5UbBlX2rRiLcbPfSDZqa6JdtFoR4f_K_gSF/exec", {
         method: "POST",
-        mode: "no-cors",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
@@ -40,7 +39,7 @@
       .then(() => alert("정보가 성공적으로 전송되었습니다!"))
       .catch(error => alert("전송 실패: " + error.message));
     }
-  </script>
+  </script>  
 </head>
 <body>
   <form onsubmit="submitForm(event)">

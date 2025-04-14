@@ -22,24 +22,31 @@
       margin-top: 10px;
     }
   </style>
- <script>
+  <script>
     function submitForm(event) {
       event.preventDefault();
+      
+      // 폼 데이터 가져오기
       const email = document.getElementById("email").value;
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
-  
-      fetch("https://script.google.com/macros/s/AKfycbzHDradcD4QvGG4ff4sTdqcTKGwXIBAr5UbBlX2rRiLcbPfSDZqa6JdtFoR4f_K_gSF/exec", {
+      const hobby = document.getElementById("hobby").value;
+      const agree = document.getElementById("agree").checked ? "동의" : "미동의";
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+      const major = document.getElementById("major").value;
+
+      // fetch로 데이터 전송
+      fetch("https://script.google.com/macros/s/AKfycbyhAKVMJLjelawxd5XyVHKl2rGO_1zubc2j7pzJAzyGdHiRXqEdT2gKyATY4lH7jJs/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: `email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`
+        body: `email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}&hobby=${encodeURIComponent(hobby)}&agree=${encodeURIComponent(agree)}&gender=${encodeURIComponent(gender)}&major=${encodeURIComponent(major)}`
       })
       .then(() => alert("정보가 성공적으로 전송되었습니다!"))
       .catch(error => alert("전송 실패: " + error.message));
     }
-  </script>  
+  </script>
 </head>
 <body>
   <form onsubmit="submitForm(event)">
@@ -53,7 +60,7 @@
       <input type="text" id="name" name="name" required placeholder="홍길동" />
       
       <label for="hobby">취미 선택:</label>
-      <input list="hobbyList" name="hobby" />
+      <input list="hobbyList" id="hobby" name="hobby" />
       <datalist id="hobbyList">
         <option value="운동">
         <option value="독서">
@@ -65,7 +72,7 @@
     <fieldset>
       <legend>추가 정보</legend>
 
-      <label><input type="checkbox" name="agree" /> 약관에 동의합니다</label>
+      <label><input type="checkbox" id="agree" name="agree" /> 약관에 동의합니다</label>
 
       <label>성별:</label>
       <label><input type="radio" name="gender" value="남" /> 남</label>

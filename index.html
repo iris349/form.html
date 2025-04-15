@@ -2,24 +2,24 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>폼 제출</title>
+  <title>To. Iris</title>
   <link rel="stylesheet" href="style.css" />
   <script>
     function submitForm(event) {
       event.preventDefault();
-  
+
       const email = document.getElementById("email").value;
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
       const hobby = document.getElementById("hobby").value;
       const agree = document.getElementById("agree").checked ? "동의" : "비동의";
-      
+
       let gender = "";
       if (document.getElementById("gender_male").checked) gender = "남";
       else if (document.getElementById("gender_female").checked) gender = "여";
-  
+
       const major = document.getElementById("major").value;
-  
+
       fetch("https://script.google.com/macros/s/AKfycbzY0dmiCHxf7t9uh82iI-le1rxIrEbDUjZBFKH5um_aHQVsaG6wotGrbvPTGg_9qnDc/exec", {
         method: "POST",
         headers: {
@@ -33,20 +33,20 @@
       })
       .catch(error => alert("전송 실패: " + error.message));
     }
-  </script>  
+  </script>
 </head>
 <body>
   <form onsubmit="submitForm(event)">
     <fieldset>
-      <legend>기본 정보</legend>
-      
-      <label for="email">이메일:</label>
+      <legend>기본질문</legend>
+
+      <label for="email">Email:</label>
       <input type="email" id="email" name="email" required placeholder="example@email.com" />
-      
+
       <label for="name">이름:</label>
       <input type="text" id="name" name="name" required placeholder="홍길동" />
-      
-      <label for="hobby">취미 선택:</label>
+
+      <label for="hobby">취미:</label>
       <input list="hobbyList" id="hobby" name="hobby" />
       <datalist id="hobbyList">
         <option value="운동">
@@ -57,13 +57,27 @@
     </fieldset>
 
     <fieldset>
-      <legend>추가 정보</legend>
+      <legend>추가질문</legend>
 
-      <label><input type="checkbox" id="agree" name="agree" /> 약관에 동의합니다</label>
+      <!-- 하고 싶은 말이 있는지 여부 -->
+      <div style="margin-top: 10px;">
+        <label>
+          <span style="display: inline-block; width: auto;">저에게 전하고 싶은 말씀이 있으신가요..?</span>
+          <input type="checkbox" id="agree" name="agree" style="width: auto; display: inline-block;" />
+          
+        </label>
+      </div>
 
-      <label>성별:</label>
-      <label><input type="radio" id="gender_male" name="gender" value="남" /> 남</label>
-      <label><input type="radio" id="gender_female" name="gender" value="여" /> 여</label>
+      <!-- 성별 -->
+      <div style="margin-top: 10px;">
+        <span>성별:</span><br />
+        <label style="display: inline-block; width: auto; margin-right: 10px;">
+          <input type="radio" id="gender_male" name="gender" value="남" style="width: auto;" /> 남
+        </label>
+        <label style="display: inline-block; width: auto;">
+          <input type="radio" id="gender_female" name="gender" value="여" style="width: auto;" /> 여
+        </label>
+      </div>
 
       <label for="major">전공:</label>
       <select name="major" id="major">
@@ -73,10 +87,10 @@
       </select>
 
       <label for="message">message:</label>
-      <textarea id="message" name="message" required placeholder="내용을 입력하세요..."></textarea>
+      <textarea id="message" name="message" required placeholder="메세지를 입력하세요."></textarea>
     </fieldset>
 
-    <button type="submit">제출</button>
+    <button type="submit">send</button>
   </form>
 </body>
 </html>

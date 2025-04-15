@@ -1,33 +1,44 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+  padding: 20px;
+  background-color: rgb(188, 215, 221); /* 배경색 */
+}
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: sans-serif;
-    padding: 20px;
-    background-color: rgb(188, 215, 221); /* 배경색 */
-  }
-  
-  input, select, textarea {
-    border: 2px solid rgb(67, 40, 222); /* 테두리 */
-  }
+input, select, textarea {
+  border: 2px solid rgb(67, 40, 222); /* 테두리 */
+}
 
-  
-  form {
-    width: 300px;
-  }
-  
-  label, input, select, textarea {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  button {
-    margin-top: 15px;
-    padding: 6px;
-    width: 100%;
-  }
-  
+form {
+  width: 300px;
+}
+
+label, input, select, textarea {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* 라디오/체크박스 전용 스타일 */
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline-block;
+  width: auto;
+  margin-right: 5px;
+}
+
+label.inline {
+  display: inline-block;
+  width: auto;
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 6px;
+  width: 100%;
+}

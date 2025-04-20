@@ -3,93 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <title>To. Iris</title>
+  <!-- 외부 스타일시트 연결 -->
   <link rel="stylesheet" href="style.css" />
-  <script>
-    function submitForm(event) {
-      event.preventDefault();
 
+  <script>
+    // 폼 제출 시 실행되는 함수
+    function submitForm(event) {
+      event.preventDefault(); // 기본 폼 제출 동작 막기
+
+      // 입력값 가져오기
       const email = document.getElementById("email").value;
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
       const hobby = document.getElementById("hobby").value;
       const agree = document.getElementById("agree").checked ? "동의" : "비동의";
 
+      // 성별 체크
       let gender = "";
       if (document.getElementById("gender_male").checked) gender = "남";
       else if (document.getElementById("gender_female").checked) gender = "여";
 
       const major = document.getElementById("major").value;
 
+      // Google Apps Script로 데이터 전송
       fetch("https://script.google.com/macros/s/AKfycbzY0dmiCHxf7t9uh82iI-le1rxIrEbDUjZBFKH5um_aHQVsaG6wotGrbvPTGg_9qnDc/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
+        // 폼 데이터를 URL 인코딩하여 전송
         body: `email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}&hobby=${encodeURIComponent(hobby)}&agree=${encodeURIComponent(agree)}&gender=${encodeURIComponent(gender)}&major=${encodeURIComponent(major)}`
       })
-      .then(response => response.text())
+      .then(response => response.text()) // 서버 응답 텍스트로 받기
       .then(result => {
-        alert("서버 응답: " + result);
+        alert("서버 응답: " + result); // 성공 메시지 출력
       })
-      .catch(error => alert("전송 실패: " + error.message));
+      .catch(error => alert("전송 실패: " + error.message)); // 실패 메시지 출력
     }
   </script>
 </head>
 <body>
+  <!-- 폼 전체 -->
   <form onsubmit="submitForm(event)">
-    <fieldset>
-      <legend>기본질문</legend>
+    <div class="form-row">
+      <!-- 기본 질문 영역 -->
+      <fieldset>
+        <legend>기본질문</legend>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required placeholder="example@email.com" />
+        <!-- 이메일 입력 -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="example@email.com" />
 
-      <label for="name">이름:</label>
-      <input type="text" id="name" name="name" required placeholder="홍길동" />
+        <!-- 이름 입력 -->
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required placeholder="홍길동" />
 
-      <label for="hobby">취미:</label>
-      <input list="hobbyList" id="hobby" name="hobby" />
-      <datalist id="hobbyList">
-        <option value="운동">
-        <option value="독서">
-        <option value="음악감상">
-        <option value="게임">
-      </datalist>
-    </fieldset>
+        <!-- 취미 선택 (datalist) -->
+        <label for="hobby">취미:</label>
+        <input list="hobbyList" id="hobby" name="hobby" />
+        <datalist id="hobbyList">
+          <option value="운동">
+          <option value="독서">
+          <option value="음악감상">
+          <option value="게임">
+        </datalist>
+      </fieldset>
 
-    <fieldset>
-      <legend>추가질문</legend>
+      <!-- 추가 질문 영역 -->
+      <fieldset>
+        <legend>추가질문</legend>
 
-      <!-- 하고 싶은 말이 있는지 여부 -->
-      <div style="margin-top: 10px;">
+        <!-- 전하고 싶은 말이 있는지 체크 -->
         <label>
-          <span style="display: inline-block; width: auto;">저에게 전하고 싶은 말씀이 있으신가요..?</span>
-          <input type="checkbox" id="agree" name="agree" style="width: auto; display: inline-block;" />
-          
+          저에게 전하고 싶은 말씀이 있으신가요..?
+          <input type="checkbox" id="agree" name="agree" />
         </label>
-      </div>
 
-      <!-- 성별 -->
-      <div style="margin-top: 10px;">
-        <span>성별:</span><br />
-        <label style="display: inline-block; width: auto; margin-right: 10px;">
-          <input type="radio" id="gender_male" name="gender" value="남" style="width: auto;" /> 남
-        </label>
-        <label style="display: inline-block; width: auto;">
-          <input type="radio" id="gender_female" name="gender" value="여" style="width: auto;" /> 여
-        </label>
-      </div>
+        <!-- 성별 선택 (라디오 버튼) -->
+        <div style="margin-top: 10px;">
+          <span>성별:</span><br />
+          <label>
+            <input type="radio" id="gender_male" name="gender" value="남" /> 남
+          </label>
+          <label>
+            <input type="radio" id="gender_female" name="gender" value="여" /> 여
+          </label>
+        </div>
 
-      <label for="major">전공:</label>
-      <select name="major" id="major">
-        <option value="디지털소프트웨어공학부">디지털소프트웨어공학부</option>
-        <option value="바이오공학부">바이오공학부</option>
-        <option value="화학공학부">화학공학부</option>
-      </select>
+        <!-- 전공 선택 (드롭다운) -->
+        <label for="major">전공:</label>
+        <select name="major" id="major">
+          <option value="디지털소프트웨어공학부">디지털소프트웨어공학부</option>
+          <option value="바이오공학부">바이오공학부</option>
+          <option value="화학공학부">화학공학부</option>
+        </select>
 
-      <label for="message">message:</label>
-      <textarea id="message" name="message" required placeholder="메세지를 입력하세요."></textarea>
-    </fieldset>
+        <!-- 메시지 입력 -->
+        <label for="message">message:</label>
+        <textarea id="message" name="message" required placeholder="메세지를 입력하세요."></textarea>
+      </fieldset>
+    </div>
 
+    <!-- 제출 버튼 -->
     <button type="submit">send</button>
   </form>
 </body>
